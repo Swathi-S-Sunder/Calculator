@@ -1,0 +1,123 @@
+.calculator-container {
+    width: 200px;
+    margin: 6% auto 0 auto;
+    border-radius: 3%;
+    padding: 10px;
+}
+
+.calculator-container h6 {
+    margin: 3px;
+    font: 12px Arial bold;
+}
+
+.calculator-container textarea {
+    resize: none;
+    width: 100%;
+    border: none;
+    background: none;
+    text-align: right;
+    font: 12px Arial;
+    padding: 1px;
+}
+
+.calculator-container .display-container {
+    width: 93%;
+    height: 50px;
+    margin: 2%;
+    padding: 0px 3px 0px 3px;
+    border-radius: 3px;
+}
+
+.calculator-container input {
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 1px;
+    text-align: right;
+    font: bold 16px Arial;
+}
+
+.buttons-container {
+    height: 220px;
+    position: relative;
+}
+
+.buttons-container div {
+    position: absolute;
+}
+
+.buttons-container .dgt-btn-container {
+    left: 0;
+    bottom: 0;
+    width: 50%;
+}
+
+.buttons-container .opr-btn-container {
+    right: 0;
+    bottom: 0;
+    width: 50%;
+}
+
+.buttons-container button {
+    height: 25px;
+    width: 28px; /*16%;*/
+    margin: 2%;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.buttons-container .dgt-btn-container button:nth-child(10) {
+    width: 60px;
+}
+
+.classic {
+    border: 2px solid #808080;
+    box-shadow: 4px 4px 20px #888888;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EFEFEF), to(#D9E4F1));
+}
+
+.classic h6 {
+    color: #1E395B;
+}
+
+.classic .display-container {
+    border: 1px solid #8E9CAD;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#E5EEFB), to(#FDFEFF));
+    color: #1E395B;
+}
+
+.classic .buttons-container button {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#D9E4F1), to(#E5EEFB));
+    border: 1px solid #8E9CAD;
+    color: #1E395B;
+}
+
+.classic .buttons-container .dgt-btn-container button{
+    background: #F4F9FD none;
+}
+
+.classic .buttons-container button:hover {
+    background:  -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFEDD9), to(#FFDB78));
+    border: 1px solid #FFD16F;
+}
+
+.dark {
+    border: 1px solid #3D3D3D;
+    box-shadow: 4px 4px 20px #888888;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#447ABA), to(#2E537E));
+}
+
+.dark h6 {
+    color: #0F1C2E;
+}
+
+.dark .display-container {
+    border: 1px solid #8E9CAD;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#AFCAF2), to(#D3E1F7));
+    color: #1E395B;
+}
+
+.dark .buttons-container button {
+    color: #1E395B;
+}

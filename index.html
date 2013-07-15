@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+</head>
+<body>
+    <script type="text/javascript" src="javascripts/libs/jquery.js"></script>
+    <script type="text/javascript" src="javascripts/libs/handlebars.js"></script>
+    <script type="text/javascript" src="javascripts/libs/ember.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+    <script type="text/javascript" src="javascripts/models/ButtonModel.js"></script>
+    <script type="text/javascript" src="javascripts/models/CalculatorModel.js"></script>
+    <script type="text/javascript" src="javascripts/views/ButtonView.js"></script>
+    <script type="text/javascript" src="javascripts/views/CalculatorView.js"></script>
+    <script type="text/javascript" src="javascripts/controllers/CalculatorController.js"></script>
+    <!--<script type="text/javascript" src="javascripts/controllers/ButtonController.js"></script>-->
+
+    <script type="text/x-handlebars">
+        {{view Calculator.Views.CalculatorView controllerBinding="Calculator.Controllers.calculatorController"}}
+    </script>
+
+</body>
+</html>
