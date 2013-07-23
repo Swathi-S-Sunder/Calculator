@@ -46,6 +46,7 @@ Calculator.Controllers.CalculatorController = Ember.ArrayController.extend({
                 case '*':
                 case '/':
                 case '√':
+                case '%':
                     this.operatorButtonPressed(character);
                     break;
                 case '=':
@@ -66,21 +67,21 @@ Calculator.Controllers.CalculatorController = Ember.ArrayController.extend({
     //clears the rightmost character
     backSpaceButtonPressed: function() {
 
-        var tempValue = Calculator.Models.calculatorModel.get('result');
         var model = Calculator.Models.calculatorModel;
-        var lastCharacter = tempValue.substr(tempValue.length-1);
+        var tempValue = model.get('result');
+        var isOperatorPressed = model.get('isOperatorPressed');
+        var operand2 = model.get('operand2');
 
-        if(this.isOperator(lastCharacter))
-            model.setProperties({'operator': '', 'isOperatorPressed': false});
-        else {
+        // When an operator is pressed last, backspace should not do anything
+        if(!isOperatorPressed || operand2 != '0') {
             var operand1 = model.get('operand1');
             var operand2 = model.get('operand2');
             if(operand2 === '0')
                 model.set('operand1', (operand1.length > 1) ? operand1.substr(0,operand1.length-1) : '0');
             else
                 model.set('operand2', (operand2.length > 1) ? operand2.substr(0,operand2.length-1) : '0');
+            model.set('result',(tempValue.length > 1) ? tempValue.substr(0,tempValue.length-1) : '0');
         }
-        Calculator.Models.calculatorModel.set('result',(tempValue.length > 1) ? tempValue.substr(0,tempValue.length-1) : '0');
     },
 
     // sets the model attributes to default
@@ -166,38 +167,49 @@ Calculator.Controllers.CalculatorController = Ember.ArrayController.extend({
 
         var tempValue, displayValue, lastCharacter;
 
-        if(operator === '√') {
-            displayValue = Calculator.Models.calculatorModel.get('displayValue');
-            if(Calculator.Models.calculatorModel.get('operand2') != '0' ) {
-                tempValue = Math.sqrt(Calculator.Models.calculatorModel.get('operand2'));
-                displayValue += 'sqrt('+ Calculator.Models.calculatorModel.get('operand2') +')';
-                Calculator.Models.calculatorModel.setProperties({'displayValue': displayValue, 'operand2': tempValue, 'result': tempValue });
-            }
-            else {
-                tempValue = Math.sqrt(Calculator.Models.calculatorModel.get('operand1'));
-                displayValue = 'sqrt('+ ( displayValue == '' ? Calculator.Models.calculatorModel.get('operand1') : displayValue )+')';
-                Calculator.Models.calculatorModel.setProperties({'displayValue': displayValue, 'operand1': tempValue, 'result': tempValue });
-            }
-        }
-        else {
-            if( Calculator.Models.calculatorModel.get('isOperatorPressed') === false ) {
-                Calculator.Models.calculatorModel.setProperties({'operator': operator, 'isOperatorPressed': true, 'displayValue': Calculator.Models.calculatorModel.get('result')+operator, 'result': Calculator.Models.calculatorModel.get('operand1')});
-            }
-            else {
-                displayValue = (Calculator.Models.calculatorModel.get('displayValue')+( ( Calculator.Models.calculatorModel.get('displayValue').indexOf('sqrt') !== -1 || Calculator.Models.calculatorModel.get('operand2') == 0 ) ? '' : Calculator.Models.calculatorModel.get('result')));
-                lastCharacter = displayValue.substr(displayValue.length-1);
+        switch(operator) {
 
-                if( this.isOperator(lastCharacter) && this.isOperator(operator) ) {
-                    displayValue = displayValue.substr(0,displayValue.length-1)+operator;
-                    tempValue = Calculator.Models.calculatorModel.get('result');
+            case '√':
+                displayValue = Calculator.Models.calculatorModel.get('displayValue');
+                if(Calculator.Models.calculatorModel.get('operand2') != '0' ) {
+                    tempValue = Math.sqrt(Calculator.Models.calculatorModel.get('operand2'));
+                    displayValue += 'sqrt('+ Calculator.Models.calculatorModel.get('operand2') +')';
+                    Calculator.Models.calculatorModel.setProperties({'displayValue': displayValue, 'operand2': tempValue, 'result': tempValue });
                 }
                 else {
-                    displayValue = displayValue+operator;
-                    tempValue = this.calculateButtonPressed(true);
+                    tempValue = Math.sqrt(Calculator.Models.calculatorModel.get('operand1'));
+                    displayValue = 'sqrt('+ ( displayValue == '' ? Calculator.Models.calculatorModel.get('operand1') : displayValue )+')';
+                    Calculator.Models.calculatorModel.setProperties({'displayValue': displayValue, 'operand1': tempValue, 'result': tempValue });
                 }
+                break;
 
-                Calculator.Models.calculatorModel.setProperties({'operator': operator, 'displayValue': displayValue , 'result': tempValue, 'operand1': tempValue, 'operand2': '0' });
-            }
+            case '%':
+                var operand1 = Calculator.Models.calculatorModel.get('operand1');
+                var operand2 = Calculator.Models.calculatorModel.get('operand2');
+                tempValue = (operand1 * operand2)/100;
+                Calculator.Models.calculatorModel.setProperties({'operand2': tempValue, 'result': tempValue, 'displayValue': Calculator.Models.calculatorModel.get('displayValue')+tempValue});
+                break;
+
+            default:
+                if( Calculator.Models.calculatorModel.get('isOperatorPressed') === false ) {
+                    Calculator.Models.calculatorModel.setProperties({'operator': operator, 'isOperatorPressed': true, 'displayValue': Calculator.Models.calculatorModel.get('result')+operator, 'result': Calculator.Models.calculatorModel.get('operand1')});
+                }
+                else {
+                    displayValue = (Calculator.Models.calculatorModel.get('displayValue')+( ( Calculator.Models.calculatorModel.get('displayValue').indexOf('sqrt') !== -1 || Calculator.Models.calculatorModel.get('operand2') == 0 ) ? '' : Calculator.Models.calculatorModel.get('result')));
+                    lastCharacter = displayValue.substr(displayValue.length-1);
+
+                    if( this.isOperator(lastCharacter) && this.isOperator(operator) ) {
+                        displayValue = displayValue.substr(0,displayValue.length-1)+operator;
+                        tempValue = Calculator.Models.calculatorModel.get('result');
+                    }
+                    else {
+                        displayValue = displayValue+operator;
+                        tempValue = this.calculateButtonPressed(true);
+                    }
+
+                    Calculator.Models.calculatorModel.setProperties({'operator': operator, 'displayValue': displayValue , 'result': tempValue, 'operand1': tempValue, 'operand2': '0' });
+                }
+                break;
         }
     },
 

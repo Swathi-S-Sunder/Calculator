@@ -8,7 +8,7 @@
 
 Calculator.Views.CalculatorView = Ember.ContainerView.extend({
 
-    childViews: ['Caption','Display','ButtonCollection'],
+    childViews: ['Caption','Display','Buttons'],
     contentBinding: "Calculator.Models.calculatorModel",
     Caption: Ember.View.extend({
         tagName: 'h6',
@@ -28,12 +28,14 @@ Calculator.Views.CalculatorView = Ember.ContainerView.extend({
         }),
 
         CurrentOperandView: Ember.TextField.extend({
-            valueBinding: 'parentView.content.result'
+            valueBinding: 'parentView.content.result',
+            attributeBindings: ['readonly'],
+            readonly: 'readonly'
         })
     }),
 
-    ButtonCollection: Ember.ContainerView.extend({
-        childViews: ['SpecialButtons','OperatorButtons','DigitButtons'],
+    Buttons: Ember.ContainerView.extend({
+        childViews: ['SpecialButtons','DigitButtons','OperatorButtons'],
         contentBinding: 'parentView.content',
         SpecialButtons: Ember.CollectionView.extend({
             contentBinding: 'parentView.content.specialButtons',
@@ -60,7 +62,6 @@ Calculator.Views.CalculatorView = Ember.ContainerView.extend({
             })
         }),
         classNames: ['buttons-container']
-        // this will be a collectionView - that will in turn consist of buttonView
     }),
 
     classNameBindings: ['themeClass','containerClass'],

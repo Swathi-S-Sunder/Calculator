@@ -1,8 +1,8 @@
 .calculator-container {
-    width: 200px;
-    margin: 6% auto 0 auto;
+    width: 210px;
+    margin: 6% auto 0;
     border-radius: 3%;
-    padding: 10px;
+    padding: 10px 0 10px 10px;
 }
 
 .calculator-container h6 {
@@ -20,11 +20,15 @@
     padding: 1px;
 }
 
+.calculator-container textarea:focus {
+    outline: none;
+}
+
 .calculator-container .display-container {
-    width: 93%;
+    width: 88%;
     height: 50px;
     margin: 2%;
-    padding: 0px 3px 0px 3px;
+    padding: 0 3px;
     border-radius: 3px;
 }
 
@@ -38,37 +42,68 @@
 }
 
 .buttons-container {
-    height: 220px;
+    height: 200px;
     position: relative;
 }
 
 .buttons-container div {
     position: absolute;
+    padding: 3px;
 }
 
 .buttons-container .dgt-btn-container {
     left: 0;
     bottom: 0;
-    width: 50%;
+    width: 56%;
 }
 
 .buttons-container .opr-btn-container {
     right: 0;
     bottom: 0;
-    width: 50%;
+    width: 41%;
+    height: 64%;
+}
+
+.buttons-container .spl-btn-container {
+    left: 0;
+    top: 0;
+    width: 100%;
 }
 
 .buttons-container button {
-    height: 25px;
-    width: 28px; /*16%;*/
-    margin: 2%;
+    height: 28px;
+    width: 35px;
+    margin: 2px;
     font-size: 13px;
     text-align: center;
     border-radius: 3px;
 }
 
-.buttons-container .dgt-btn-container button:nth-child(10) {
-    width: 60px;
+/* 0 button */
+.buttons-container .dgt-btn-container button:nth-last-child(2) {
+    width: 74px;
+}
+
+/* = button */
+.buttons-container .opr-btn-container button:nth-last-child(2) {
+    height: 60px;
+    vertical-align: top;
+}
+
+/* + button */
+.buttons-container .opr-btn-container button:last-child {
+    top: -31px;
+    position: relative;
+}
+
+.spl-btn-container button{
+    font: 12px Corbel;
+}
+
+
+/* Backspace button */
+.spl-btn-container button:nth-child(6){
+    font: bold 17px Corbel;
 }
 
 .classic {
@@ -88,13 +123,18 @@
 }
 
 .classic .buttons-container button {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#D9E4F1), to(#E5EEFB));
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F6F9FD), to(#CAD9EB));
     border: 1px solid #8E9CAD;
     color: #1E395B;
 }
 
 .classic .buttons-container .dgt-btn-container button{
     background: #F4F9FD none;
+}
+
+/* Memory buttons */
+.classic .buttons-container .spl-btn-container button:nth-child(-n+5) {
+    background: #D2DFEE none;
 }
 
 .classic .buttons-container button:hover {
